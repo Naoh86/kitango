@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naoh's Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sage:  #5a8a5e;
+      --moss:  #2e6b38;
+      --fern:  #1a4225;
+      --deep:  #0f2e18;
+      --mist:  #ddeedd;
+      --dew:   #eef7ee;
+      --bark:  #1e2820;
+      --cream: #f5f9f5;
+      --stone: #6b7d6e;
+      --accent:#b8942a;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    /* 固定ナビ分のオフセット（各セクションの手前に余白） */
+    section, #top { scroll-margin-top: 90px; }
+
+    body {
+      background: var(--cream);
+      color: var(--bark);
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    #navbar {
+      position: sticky;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.8rem 2rem 0.6rem;
+      background: rgba(238,247,238,0.97);
+      border-bottom: 1px solid rgba(46,107,56,0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--fern);
+      text-decoration: none;
+      margin-bottom: 0.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--moss);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover { color: var(--fern); text-decoration: underline; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 30%, rgba(46,107,56,0.20) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 15% 70%, rgba(26,66,37,0.13) 0%, transparent 70%),
+        linear-gradient(160deg, var(--dew) 0%, var(--cream) 60%, #e2f0e4 100%);
+      text-align: center;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--sage);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      color: var(--fern);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      color: var(--stone);
+      margin-bottom: 2rem;
+    }
+
+    .hero-haiku {
+      display: inline-block;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1rem;
+      color: var(--moss);
+      line-height: 2.2;
+      letter-spacing: 0.1em;
+      border-left: 2px solid var(--sage);
+      padding: 0.4rem 1.4rem;
+      text-align: left;
+      margin: 0.8rem 0 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.8rem 2.2rem;
+      border: 1.5px solid var(--moss);
+      color: var(--fern);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn:hover { background: var(--moss); color: white; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 300;
+      color: var(--fern);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--mist); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .about-image-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--sage), var(--moss), var(--fern));
+      border-radius: 4px 50px 4px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    .about-text p { margin-bottom: 1rem; color: #3a4a3c; font-size: 0.92rem; }
+
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+    .tag {
+      padding: 0.25rem 0.9rem;
+      background: white;
+      border: 1px solid rgba(46,107,56,0.35);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--moss);
+    }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--cream); }
+
+    .gallery-intro { color: var(--stone); margin-bottom: 2rem; font-size: 0.9rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+
+    .gallery-frame {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:nth-child(1) .gallery-frame { aspect-ratio: 2/1.2; }
+    .gallery-item:nth-child(4) .gallery-frame { aspect-ratio: 2/1; }
+    .gallery-item:hover .gallery-frame { transform: scale(1.04); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,66,37,0.75) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-caption {
+      color: white;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .photo-placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── ACTIVITIES ── */
+    #activities { background: var(--mist); }
+
+    .activity-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    /* アコーディオンカード */
+    .ac-card {
+      background: white;
+      border: 1px solid rgba(46,107,56,0.2);
+      border-radius: 4px 20px 4px 4px;
+    }
+
+    .ac-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      gap: 0.8rem;
+    }
+
+    .ac-header:hover { background: rgba(46,107,56,0.04); }
+
+    .ac-left { display: flex; align-items: center; gap: 0.8rem; }
+
+    .ac-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .ac-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.9rem;
+      color: var(--fern);
+      line-height: 1.4;
+    }
+
+    .ac-plus {
+      font-size: 1.3rem;
+      color: var(--sage);
+      font-weight: 300;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      line-height: 1;
+    }
+
+    .ac-card.open .ac-plus { transform: rotate(45deg); }
+    .ac-card.open { border-color: rgba(46,107,56,0.45); border-left: 3px solid var(--moss); }
+
+    .ac-body {
+      padding: 0 1.5rem 1.3rem;
+      border-top: 1px solid rgba(46,107,56,0.12);
+      display: none;
+    }
+
+    .ac-desc {
+      font-size: 0.85rem;
+      color: var(--stone);
+      line-height: 1.8;
+      padding-top: 1rem;
+    }
+
+    /* ── HAIKU ── */
+    #writings { background: var(--cream); }
+
+    .writings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .writing-card { border-top: 1px solid rgba(46,107,56,0.3); padding-top: 1.3rem; }
+
+    .writing-date { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--sage); margin-bottom: 0.7rem; }
+
+    .writing-text {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.95rem;
+      line-height: 2.2;
+      color: var(--bark);
+      margin-bottom: 0.7rem;
+    }
+
+    .writing-note { font-size: 0.8rem; color: var(--stone); font-style: italic; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(150deg, var(--fern) 0%, var(--moss) 70%, #3d6b42 100%);
+      color: white;
+    }
+    #contact .section-label { color: rgba(255,255,255,0.5); }
+    #contact .section-title { color: white; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-lead { font-size: 0.9rem; color: rgba(255,255,255,0.72); line-height: 1.9; margin-bottom: 1.8rem; }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+    .social-link:hover { color: white; }
+    .social-icon {
+      width: 34px; height: 34px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 0.9rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .form-group label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      color: white;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      resize: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: rgba(255,255,255,0.55); }
+
+    .btn-light {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      background: white;
+      color: var(--fern);
+      border: none;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      font-weight: 400;
+      margin-top: 0.4rem;
+      transition: background 0.3s;
+    }
+    .btn-light:hover { background: var(--mist); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bark);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.73rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(4) { grid-column: span 2; }
+      .writings-grid { grid-template-columns: 1fr; }
+      .activity-list { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; font-size: 0.68rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#top" class="nav-logo" onclick="goTo('top');return false;">Naoh's Page</a>
+  <ul class="nav-links">
+    <li><a href="#about" onclick="goTo('about');return false;">About</a></li>
+    <li><a href="#gallery" onclick="goTo('gallery');return false;">Gallery</a></li>
+    <li><a href="#activities" onclick="goTo('activities');return false;">Activities</a></li>
+    <li><a href="#writings" onclick="goTo('writings');return false;">俳句</a></li>
+    <li><a href="#contact" onclick="goTo('contact');return false;">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="top" style="height:0;"></div>
+<section class="hero">
+  <div>
+    <p class="hero-eyebrow">— Welcome to my page —</p>
+    <h1 class="hero-title">Naoh's Page</h1>
+    <p class="hero-subtitle">鎌倉から、自然と音楽と言葉と。</p>
+    <blockquote class="hero-haiku">風かほる　緑の野辺の　ひとところ</blockquote>
+    <a href="#about" class="btn">Enter</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-frame">Your Photo Here</div>
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title" style="margin-bottom:1.2rem;">はじめまして</h2>
+        <p>鎌倉市を拠点に、この地の歴史・遺跡・豊かな自然環境を守る活動に参加しています。古都に刻まれた記憶と景観を次の世代へ受け継いでいくことが、大切な使命だと感じています。</p>
+        <p>テニスやダンス、合唱、哲学の勉強会など、さまざまなコミュニティ活動も日々の喜びです。俳句や音楽は、そんな暮らしの中で自然と育まれた表現の場でもあります。</p>
+        <p>このページでは、鎌倉の風景や日常の断片をゆるやかに綴っていきます。</p>
+        <div class="about-tags">
+          <span class="tag">🎾 テニス</span>
+          <span class="tag">💃 ダンス</span>
+          <span class="tag">🎵 合唱</span>
+          <span class="tag">✍️ 俳句</span>
+          <span class="tag">📚 哲学</span>
+          <span class="tag">🏯 鎌倉の歴史</span>
+          <span class="tag">🌿 環境保護</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <p class="section-label">Gallery</p>
+    <h2 class="section-title">写真帖</h2>
+    <p class="gallery-intro">日常のなかで出会った、光と緑と季節のかけら。</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-frame" style="background:linear-gradient(145deg,#7da880,#4a7d52);">
+          <span class="photo-placeholder">featured photo</span>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-caption">鎌倉の緑道にて<br><small>2025年 初夏</small></div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-frame" style="background:linear-gradient(145deg,#a0bc9e,#6a9470);">
+          <span class="photo-placeholder">photo 2</span>
+        </div>
+        <div class="gallery-overlay"><div class="gallery-caption">朝のひかり</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-frame" style="background:linear-gradient(145deg,#6f9470,#4a7050);">
+          <span class="photo-placeholder">photo 3</span>
+        </div>
+        <div class="gallery-overlay"><div class="gallery-caption">野辺のひとところ</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-frame" style="background:linear-gradient(145deg,#aac4a0,#78a080);">
+          <span class="photo-placeholder">photo 4 — wide</span>
+        </div>
+        <div class="gallery-overlay"><div class="gallery-caption">海へつづく道</div></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-frame" style="background:linear-gradient(145deg,#8aaa8e,#5a8060);">
+          <span class="photo-placeholder">photo 5</span>
+        </div>
+        <div class="gallery-overlay"><div class="gallery-caption">夕暮れどき</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="container">
+    <p class="section-label">Activities</p>
+    <h2 class="section-title">暮らしと活動</h2>
+    <div class="activity-list">
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">🎾</span>
+            <span class="ac-name">テニス</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">定期的なクラブ活動で、体を動かし仲間と交流しています。鎌倉の澄んだ空気のなかでのプレーは格別です。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">💃</span>
+            <span class="ac-name">ダンス</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">音楽に合わせて体を動かすことの喜び。日常からの解放と表現の場として大切にしています。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">🎵</span>
+            <span class="ac-name">合唱：KWR ／ 鎌倉 Joyful Harmony</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">声を合わせることで生まれるハーモニー。合唱団の仲間たちとの練習と本番は、かけがえのない時間です。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">📖</span>
+            <span class="ac-name">哲学・四木会</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">音楽や哲学をテーマにした勉強会・コミュニティ活動。思索と対話で知を深めています。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">🏯</span>
+            <span class="ac-name">鎌倉の歴史・遺跡</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">古都鎌倉に残る史跡・遺跡の調査・保全活動に関わっています。歴史の重みを肌で感じながら、地域の記憶を守っています。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">🌱</span>
+            <span class="ac-name">環境を守る活動</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">鎌倉の豊かな自然環境を次世代へ受け継ぐための活動に参加。緑や海岸線の保全、地域の生態系を大切にしています。</p>
+        </div>
+      </div>
+
+      <div class="ac-card">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">🌸</span>
+            <span class="ac-name">鎌倉さんぽ</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">古都の四季を味わいながら散策。その風景が俳句の種になることも。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HAIKU -->
+<section id="writings">
+  <div class="container">
+    <p class="section-label">Haiku &amp; Notes</p>
+    <h2 class="section-title">俳句など</h2>
+    <div class="writings-grid">
+      <div class="writing-card">
+        <p class="writing-date">2025. 05</p>
+        <p class="writing-text">風かほる　緑の野辺の　ひとところ</p>
+        <p class="writing-note">野辺の一点に宿る、初夏の気配。</p>
+      </div>
+      <div class="writing-card">
+        <p class="writing-date">2025. 04</p>
+        <p class="writing-text">ここに俳句を<br>一句掲載できます<br>春の季語など</p>
+        <p class="writing-note">コメントや季節のメモを添えて。</p>
+      </div>
+      <div class="writing-card">
+        <p class="writing-date">2025. 03</p>
+        <p class="writing-text">もう一句、<br>お気に入りの作品を<br>こちらへ。</p>
+        <p class="writing-note">随時追加できます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">お問い合わせ</h2>
+        <p class="contact-lead">お気軽にメッセージをお寄せください。<br>鎌倉の歴史・環境・合唱・俳句など、共通の関心をお持ちの方も歓迎です。</p>
+        <a href="#" class="social-link">
+          <span class="social-icon">✉</span>メールでのお問い合わせ
+        </a>
+        <a href="#" class="social-link">
+          <span class="social-icon">𝕏</span>SNS（準備中）
+        </a>
+      </div>
+      <form onsubmit="submitForm(event)" class="contact-form">
+        <div class="form-group">
+          <label>お名前</label>
+          <input type="text" placeholder="山田 太郎">
+        </div>
+        <div class="form-group">
+          <label>メールアドレス</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>メッセージ</label>
+          <textarea rows="5" placeholder="メッセージをどうぞ…"></textarea>
+        </div>
+        <button type="submit" class="btn-light">送信する</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Naoh's Page — Kamakura, Japan &nbsp;|&nbsp; 🌿</p>
+</footer>
+
+<script>
+/* ナビ用スクロール関数 - onclick から直接呼ぶ */
+function goTo(id) {
+  window.location.hash = id;
+}
+
+/* アコーディオン */
+document.addEventListener('DOMContentLoaded', function() {
+  var headers = document.getElementsByClassName('ac-header');
+  for (var j = 0; j < headers.length; j++) {
+    headers[j].addEventListener('click', function() {
+      var card = this.parentElement;
+      var body = card.querySelector('.ac-body');
+      var plus = card.querySelector('.ac-plus');
+      var isOpen = (body.style.display === 'block');
+      var allCards = document.getElementsByClassName('ac-card');
+      for (var k = 0; k < allCards.length; k++) {
+        allCards[k].querySelector('.ac-body').style.display = 'none';
+        allCards[k].querySelector('.ac-plus').style.transform = 'rotate(0deg)';
+        allCards[k].style.borderLeft = '';
+      }
+      if (!isOpen) {
+        body.style.display = 'block';
+        plus.style.transform = 'rotate(45deg)';
+        card.style.borderLeft = '3px solid #2e6b38';
+      }
+    });
+  }
+});
+
+/* フォーム送信 */
+function submitForm(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('.btn-light');
+  btn.textContent = '✓ 送信しました';
+  btn.style.background = '#c8e6c9';
+  setTimeout(function() {
+    btn.textContent = '送信する';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+</script>
+</script>
+
+</body>
+</html>
