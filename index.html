@@ -198,7 +198,11 @@
       border-radius: 100px;
       font-size: 0.75rem;
       color: var(--moss);
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
     }
+    a.tag:hover { background: var(--moss); color: white; }
 
     /* ── GALLERY ── */
     #gallery { background: var(--cream); }
@@ -449,7 +453,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#top" class="nav-logo" onclick="goTo('top');return false;">Naoh's Page</a>
+  <a href="#top" class="nav-logo">Naoh's Page</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#gallery">Gallery</a></li>
@@ -483,13 +487,13 @@
         <p>テニスやダンス、合唱、哲学の勉強会など、さまざまなコミュニティ活動も日々の喜びです。俳句や音楽は、そんな暮らしの中で自然と育まれた表現の場でもあります。</p>
         <p>このページでは、鎌倉の風景や日常の断片をゆるやかに綴っていきます。</p>
         <div class="about-tags">
-          <span class="tag">🎾 テニス</span>
-          <span class="tag">💃 ダンス</span>
-          <span class="tag">🎵 合唱</span>
-          <span class="tag">✍️ 俳句</span>
-          <span class="tag">📚 哲学</span>
-          <span class="tag">🏯 鎌倉の歴史</span>
-          <span class="tag">🌿 環境保護</span>
+          <a href="#ac-tennis" class="tag">🎾 テニス</a>
+          <a href="#ac-dance" class="tag">💃 ダンス</a>
+          <a href="#ac-chorus" class="tag">🎵 合唱</a>
+          <a href="#ac-haiku" class="tag">✍️ 俳句</a>
+          <a href="#ac-philosophy" class="tag">📚 哲学</a>
+          <a href="#ac-history" class="tag">🏯 鎌倉の歴史</a>
+          <a href="#ac-nature" class="tag">🌿 環境保護</a>
         </div>
       </div>
     </div>
@@ -546,7 +550,7 @@
     <h2 class="section-title">暮らしと活動</h2>
     <div class="activity-list">
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-tennis">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">🎾</span>
@@ -559,7 +563,7 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-dance">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">💃</span>
@@ -572,7 +576,7 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-chorus">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">🎵</span>
@@ -585,7 +589,20 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-haiku">
+        <div class="ac-header">
+          <div class="ac-left">
+            <span class="ac-icon">✍️</span>
+            <span class="ac-name">俳句</span>
+          </div>
+          <span class="ac-plus">＋</span>
+        </div>
+        <div class="ac-body">
+          <p class="ac-desc">日常の風景や季節の移ろいを17音に込めています。鎌倉の自然がいつも豊かな詩の源になっています。</p>
+        </div>
+      </div>
+
+      <div class="ac-card" id="ac-philosophy">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">📖</span>
@@ -598,7 +615,7 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-history">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">🏯</span>
@@ -611,7 +628,7 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-nature">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">🌱</span>
@@ -624,7 +641,7 @@
         </div>
       </div>
 
-      <div class="ac-card">
+      <div class="ac-card" id="ac-walk">
         <div class="ac-header">
           <div class="ac-left">
             <span class="ac-icon">🌸</span>
